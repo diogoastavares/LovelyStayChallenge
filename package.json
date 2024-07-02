@@ -1,0 +1,19 @@
+{
+  "name": "lovelystaychallenge",
+  "version": "1.0.0",
+  "description": "LovelyStay Back-End Coding Test",
+  "main": "main.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/diogoastavares/LovelyStayChallenge.git"
+  },
+  "author": "Diogo Tavares",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diogoastavares/LovelyStayChallenge/issues"
+  },
+  "homepage": "https://github.com/diogoastavares/LovelyStayChallenge#readme"
+}
