@@ -4,6 +4,7 @@
   "description": "LovelyStay Back-End Coding Test",
   "main": "main.js",
   "scripts": {
+    "build": "tsc",
     "test": "npm run test"
   },
   "repository": {
@@ -15,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/diogoastavares/LovelyStayChallenge/issues"
   },
-  "homepage": "https://github.com/diogoastavares/LovelyStayChallenge#readme"
+  "homepage": "https://github.com/diogoastavares/LovelyStayChallenge#readme",
+  "dependencies": {
+    "@types/node": "^20.14.9",
+    "eslint": "^8.57.0",
+    "pg-promise": "^11.8.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
+  }
 }
