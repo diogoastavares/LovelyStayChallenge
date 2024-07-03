@@ -1,5 +1,5 @@
 export const insertUserQuery = `
-    INSERT INTO users(github_username, name, location)
+    INSERT INTO "Users" (github_username, name, location)
     VALUES($1, $2, $3) 
     ON CONFLICT (github_username)
     DO UPDATE SET
@@ -8,17 +8,17 @@ export const insertUserQuery = `
     RETURNING id, (xmax = 0) AS new_insertion`;
 
 export const insertLanguagesQuery = `
-    INSERT INTO Languages (user_id, language)
+    INSERT INTO "Languages" (user_id, language)
     VALUES ($1, $2)
     ON CONFLICT (user_id, language) DO NOTHING
     RETURNING language`;
 
 export const deleteObsoleteLanguagesQuery = `
-    DELETE FROM Languages
+    DELETE FROM "Languages"
     WHERE user_id = $1
     AND language IN (
         SELECT language
-        FROM Languages
+        FROM "Languages"
         WHERE user_id = $1
         EXCEPT
         SELECT unnest($2::text[])

@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "build": "tsc",
+    "db:migrate": "ts-node ./node_modules/.bin/sequelize db:migrate",
     "test": "npm run test"
   },
   "repository": {
@@ -23,7 +24,13 @@
     "commander": "^12.1.0",
     "eslint": "^8.57.0",
     "pg-promise": "^11.8.0",
-    "ts-node": "^10.9.2",
+    "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2",
+    "sequelize-typescript": "^2.1.6",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "@types/sequelize": "^4.28.20",
     "typescript": "^5.5.3"
   }
 }
