@@ -16,7 +16,7 @@ export async function fetchGitHubUser(username: string): Promise<any> {
         }
     })
     .catch((error: AxiosError) => {
-        throw customError(error);
+        throw customError("Error when fetching GitHub User", error);
     });
 };
 
@@ -39,6 +39,6 @@ export const fetchGithubLanguages = async (username: string): Promise<string[]> 
         return Array.from(languages);
     })
     .catch((error: AxiosError) => {
-        throw customError(error);
+        throw customError("Error when fetching GitHub Languages", error);
     });
 };

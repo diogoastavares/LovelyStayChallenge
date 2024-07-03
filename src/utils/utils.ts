@@ -11,4 +11,4 @@ const errorMessages: { [key: string]: string } = {
     404: "Not Found"
 }
 
-export const customError = (error: any) => ((e: Error) => { e.stack = ''; return e; })(new Error(`Error when fetching GitHub User: ${ errorMessages[error.response?.status!] || error.message}`))
+export const customError = (title: string, error: any) => ((e: Error) => { e.stack = ''; return e; })(new Error(`${title}: ${ errorMessages[error.response?.status!] || error.message}`))

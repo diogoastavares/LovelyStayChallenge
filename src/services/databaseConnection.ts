@@ -17,7 +17,7 @@ export async function insertUser(user: any): Promise<number> {
             return result.id;
         })
         .catch((error: Error) => {
-            throw customError(error);
+            throw customError("Error adding user do DB", error);
         });
 };
 
@@ -51,7 +51,7 @@ export const insertLanguages = async (userId: number, languages: string[]): Prom
                 }
             })
             .catch(error => {
-                throw customError(error);
+                throw customError("Error adding Languages do DB", error);
             });
     });
 }
