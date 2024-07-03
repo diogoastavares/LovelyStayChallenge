@@ -1,38 +1,57 @@
 import pgPromise from 'pg-promise';
+import { insertUserQuery, insertLanguagesQuery, deleteObsoleteLanguagesQuery } from '../utils/queries';
+import { customError } from '../utils/utils';
 
 const pgp = pgPromise();
 const db = pgp(process.env.DATABASE_URL!);
 
 export async function insertUser(user: any): Promise<number> {
-    console.log("Inserting user to database...");
+    return await db.one(insertUserQuery,[user.username, user.name, user.location])
+        .then(result => {
+            if (!result.new_insertion) {
+                console.warn("[ Already Exists! Updating Values.. ]")
+            }
 
-    return await db.one(
-        'INSERT INTO users(name, location) VALUES($1, $2) RETURNING id',
-        [user.name, user.location]
-    )
-    .then(result => {
-        console.log(`-> User added to database with id: ${result.id}`);
-        return result.id
-    })
-    .catch((error: Error) => {
-        throw new Error (`Error Inserting User into DB: ${error.message}`)
-    });
+            console.log(`-> User ID: ${result.id}`);
+            
+            return result.id;
+        })
+        .catch((error: Error) => {
+            throw customError(error);
+        });
 };
 
 export const insertLanguages = async (userId: number, languages: string[]): Promise<void> => {
-    const queries = languages.map(language =>
-        db.none(
-            'INSERT INTO languages(user_id, language) VALUES($1, $2)', 
-            [userId, language]
-        ).then(() => console.log(`-> ${language} OK!`))
-    );
-    
-    console.log("Inserting languages to database...");
+    await db.tx(t => {
+        const addResults = languages.map(language =>
+            t.oneOrNone(insertLanguagesQuery, 
+                [userId, language])
+        );
 
-    await Promise.all(queries).then(() => {
-        console.log("Languages added to database!");
-    })
-    .catch((error: Error) => {
-        throw new Error (`Error Inserting Languages into DB: ${error.message}`)
-    });;
-};
+        return t.batch(addResults)
+            .then(results => {
+                results.forEach((result, index) => {
+                    const language = languages[index];
+                    if (result) {
+                        console.log(`-> ${language} added!`);
+                    } else {
+                        console.log(`-> ${language} already exists! Skipped...`);
+                    }
+                });
+
+                return t.any(deleteObsoleteLanguagesQuery, [userId, languages]);
+            })
+            .then(obsoleteLanguages => {
+                if (obsoleteLanguages.length > 0) {
+                    obsoleteLanguages.forEach(({ language }) => {
+                        console.log(`-> ${language} removed!`);
+                    });
+                } else {
+                    console.log('[ No obsolete languages to remove! ]');
+                }
+            })
+            .catch(error => {
+                throw customError(error);
+            });
+    });
+}

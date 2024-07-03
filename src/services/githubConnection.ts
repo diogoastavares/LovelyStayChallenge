@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { githubBaseUrl, githubHeaders } from '../utils/utils' 
+import { githubBaseUrl, githubHeaders, customError } from '../utils/utils' 
 
 export async function fetchGitHubUser(username: string): Promise<any> {
     return await axios.get(
@@ -7,15 +7,16 @@ export async function fetchGitHubUser(username: string): Promise<any> {
         { headers: githubHeaders }
     )
     .then((response: AxiosResponse) => {
-        console.log(`User ${username} found!`);
+        console.log(`[ User ${username} found! ]`);
 
         return {
+            username: response.data.login,
             name: response.data.name,
             location: response.data.location
         }
     })
     .catch((error: AxiosError) => {
-        throw(new Error(`Error when fetching GitHub User: ${error.message}`))
+        throw customError(error);
     });
 };
 
@@ -33,11 +34,11 @@ export const fetchGithubLanguages = async (username: string): Promise<string[]> 
             }
         });
 
-        console.log(`Programming languages found for ${username}: ${Array.from(languages)}`)
+        console.log(`-> ${username} Programming languages: ${Array.from(languages)}`)
 
         return Array.from(languages);
     })
     .catch((error: AxiosError) => {
-        throw(new Error(`Error when fetching GitHub Languages: ${error.message}`))
+        throw customError(error);
     });
 };

@@ -8,7 +8,7 @@ export const fetchAndAddUser = async (username: string): Promise<{
 }> => {
     const userInfo = await fetchGitHubUser(username);
 
-    console.log(userInfo);
+    console.log("[ Inserting user to database... ]");
 
     return {
         userId: await insertUser(userInfo), 
