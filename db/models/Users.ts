@@ -32,4 +32,4 @@ export const Users = (sequelize: Sequelize) => {
     timestamps: false
   });
   UsersAttributes.sync();
-}
+};

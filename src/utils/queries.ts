@@ -1,4 +1,4 @@
-export const insertUserQuery = `
+export const insertUserQuery: string = `
     INSERT INTO "Users" (github_username, name, location)
     VALUES($1, $2, $3) 
     ON CONFLICT (github_username)
@@ -7,13 +7,13 @@ export const insertUserQuery = `
         location = EXCLUDED.location
     RETURNING id, (xmax = 0) AS new_insertion`;
 
-export const insertLanguagesQuery = `
+export const insertLanguagesQuery: string = `
     INSERT INTO "Languages" (user_id, language)
     VALUES ($1, $2)
     ON CONFLICT (user_id, language) DO NOTHING
     RETURNING language`;
 
-export const deleteObsoleteLanguagesQuery = `
+export const deleteObsoleteLanguagesQuery: string = `
     DELETE FROM "Languages"
     WHERE user_id = $1
     AND language IN (
@@ -25,44 +25,48 @@ export const deleteObsoleteLanguagesQuery = `
     )
     RETURNING language`;
 
-const getUsersBaseQuery = `
+const getUsersBaseQuery: string = `
     SELECT u.*
     FROM "Users" u`;
 
-const languagesCondition = `
+const languagesCondition: string = `
     u.id IN (
         SELECT user_id
         FROM "Languages"
         WHERE language IN ($/languages:csv/)
         GROUP BY user_id
         HAVING COUNT(DISTINCT language) = $/languageCount/
-    )`
+    )`;
 
-export const getUsersQuery = (conditions: {
+export const getUsersQuery = (
+  conditions: {
     location: string | undefined,
     languages: string[] | undefined
-}): { [key: string]: any } => {
-    let query: string = getUsersBaseQuery;
-    let conditionsArray: string[] = [];
-    let values: { [key: string]: any } = {};
+  }
+): {
+  [key: string]: string | object
+} => {
+  let query: string = getUsersBaseQuery;
+  const conditionsArray: string[] = [];
+  const values: { [key: string]: string | string[] | number } = {};
 
-    if (conditions.location) {
-        conditionsArray.push('u.location = ${location}');
-        values.location = location;
-    }
+  if (conditions.location) {
+    conditionsArray.push('u.location = ${location}');
+    values.location = conditions.location;
+  }
 
-    if (conditions.languages && conditions.languages.length > 0) {
-        conditionsArray.push(languagesCondition);
-        values.languages = conditions.languages;
-        values.languageCount = conditions.languages.length;
-    }
+  if (conditions.languages && conditions.languages.length > 0) {
+    conditionsArray.push(languagesCondition);
+    values.languages = conditions.languages;
+    values.languageCount = conditions.languages.length;
+  }
 
-    if (conditionsArray.length > 0) {
-        query += ' WHERE ' + conditionsArray.join(' AND ');
-    }
+  if (conditionsArray.length > 0) {
+    query += ' WHERE ' + conditionsArray.join(' AND ');
+  }
 
-    return {
-        query,
-        values
-    };
-}
+  return {
+    query,
+    values
+  };
+};

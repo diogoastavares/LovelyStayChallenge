@@ -4,8 +4,9 @@
   "description": "LovelyStay Back-End Coding Test",
   "main": "main.js",
   "scripts": {
-    "build": "tsc",
     "db:migrate": "ts-node ./node_modules/.bin/sequelize db:migrate",
+    "lint": "eslint . --ext .ts --fix",
+    "build": "tsc",
     "test": "npm run test"
   },
   "repository": {
@@ -22,7 +23,6 @@
     "@types/node": "^20.14.9",
     "axios": "^1.7.2",
     "commander": "^12.1.0",
-    "eslint": "^8.57.0",
     "pg-promise": "^11.8.0",
     "sequelize": "^6.37.3",
     "sequelize-cli": "^6.6.2",
@@ -31,6 +31,11 @@
   },
   "devDependencies": {
     "@types/sequelize": "^4.28.20",
+    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "@typescript-eslint/parser": "^7.15.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
     "typescript": "^5.5.3"
   }
 }
