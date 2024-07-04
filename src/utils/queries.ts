@@ -24,3 +24,45 @@ export const deleteObsoleteLanguagesQuery = `
         SELECT unnest($2::text[])
     )
     RETURNING language`;
+
+const getUsersBaseQuery = `
+    SELECT u.*
+    FROM "Users" u`;
+
+const languagesCondition = `
+    u.id IN (
+        SELECT user_id
+        FROM "Languages"
+        WHERE language IN ($/languages:csv/)
+        GROUP BY user_id
+        HAVING COUNT(DISTINCT language) = $/languageCount/
+    )`
+
+export const getUsersQuery = (conditions: {
+    location: string | undefined,
+    languages: string[] | undefined
+}): { [key: string]: any } => {
+    let query: string = getUsersBaseQuery;
+    let conditionsArray: string[] = [];
+    let values: { [key: string]: any } = {};
+
+    if (conditions.location) {
+        conditionsArray.push('u.location = ${location}');
+        values.location = location;
+    }
+
+    if (conditions.languages && conditions.languages.length > 0) {
+        conditionsArray.push(languagesCondition);
+        values.languages = conditions.languages;
+        values.languageCount = conditions.languages.length;
+    }
+
+    if (conditionsArray.length > 0) {
+        query += ' WHERE ' + conditionsArray.join(' AND ');
+    }
+
+    return {
+        query,
+        values
+    };
+}

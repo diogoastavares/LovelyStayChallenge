@@ -1,6 +1,7 @@
 import { program } from "commander";
-import { fetchAndAddUser, /*listUsers*/ } from './controllers/usersController';
+import { fetchAndAddUser, listUsers } from './controllers/usersController';
 import { addLanguages } from './controllers/languagesController';
+import { argv } from "process";
 
 program
     .command('addUser')
@@ -13,9 +14,11 @@ program
 
 program
     .command('listUsers')
-    .option('-l, --location <location>', 'Users\' location')
-    .option('--languages <value...>', 'Programming languages to filter Users')
+    .option('-l, --location [location]', 'Users\' location')
+    .option('--languages [languages...]', 'Programming languages to filter Users')
     .description('List users stored in the database, with possibility to filter by location and/or programming languages')
-    //.action(listUsers)
+    .action(async (options) => {
+        await listUsers(options.location, options.languages);
+    })
 
 program.parse()

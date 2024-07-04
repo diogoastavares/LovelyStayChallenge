@@ -1,19 +1,24 @@
 import pgPromise from 'pg-promise';
-import { insertUserQuery, insertLanguagesQuery, deleteObsoleteLanguagesQuery } from '../utils/queries';
+import { 
+    deleteObsoleteLanguagesQuery, 
+    insertLanguagesQuery, 
+    insertUserQuery,
+    getUsersQuery
+} from '../utils/queries';
 import { customError } from '../utils/utils';
 
 const pgp = pgPromise();
 const db = pgp(process.env.DATABASE_URL!);
 
 export async function insertUser(user: any): Promise<number> {
-    return await db.one(insertUserQuery,[user.username, user.name, user.location])
+    return await db.one(insertUserQuery, [user.username, user.name, user.location])
         .then(result => {
             if (!result.new_insertion) {
                 console.warn("[ Already Exists! Updating Values.. ]")
             }
 
             console.log(`-> User ID: ${result.id}`);
-            
+
             return result.id;
         })
         .catch((error: Error) => {
@@ -24,7 +29,7 @@ export async function insertUser(user: any): Promise<number> {
 export const insertLanguages = async (userId: number, languages: string[]): Promise<void> => {
     await db.tx(t => {
         const addResults = languages.map(language =>
-            t.oneOrNone(insertLanguagesQuery, 
+            t.oneOrNone(insertLanguagesQuery,
                 [userId, language])
         );
 
@@ -50,8 +55,17 @@ export const insertLanguages = async (userId: number, languages: string[]): Prom
                     console.log('[ No obsolete languages to remove! ]');
                 }
             })
-            .catch(error => {
+            .catch((error: Error) => {
                 throw customError("Error adding Languages do DB", error);
             });
     });
+}
+
+export const getUsers = async (location?: string, languages?: string[]): Promise<any[]> => {
+    const { query, values } = getUsersQuery({ location, languages });
+
+    return db.any(query, values)
+        .catch(error => {
+            throw customError("Error getting Users from DB", error)
+        })
 }

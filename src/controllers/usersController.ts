@@ -1,5 +1,5 @@
 import { fetchGitHubUser, fetchGithubLanguages } from "../services/githubConnection"
-import { insertUser } from "../services/databaseConnection"
+import { insertUser, getUsers } from "../services/databaseConnection"
 
 
 export const fetchAndAddUser = async (username: string): Promise<{
@@ -15,3 +15,7 @@ export const fetchAndAddUser = async (username: string): Promise<{
         languages: await fetchGithubLanguages(username)
     };
 };
+
+export const listUsers = async (location?: string, languages?: string[]): Promise<void> => {
+    console.log(await getUsers(location, languages));
+}
