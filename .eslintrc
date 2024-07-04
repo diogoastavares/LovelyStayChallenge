@@ -25,9 +25,12 @@
     "@typescript-eslint/no-inferrable-types":             "off",                      // Allow type inference
     "curly":                                              ["error", "all"],           // Enforce consistent brace style
     "eqeqeq":                                             ["error", "always"],        // Enforce use of === and !==
-    "prefer-const":                                       "error",                     // Prefer const over let where possible
+    "prefer-const":                                       "error",                    // Prefer const over let where possible
     "object-curly-newline":                               ["error", {
-                                                            "ImportDeclaration": { "consistent": true, "multiline": true }
+                                                            "ImportDeclaration": { 
+                                                              "consistent": true, 
+                                                              "multiline": true 
+                                                            }
                                                           }]
   }
 }
