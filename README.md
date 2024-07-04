@@ -47,7 +47,7 @@ LovelyStayChallenge/
 
 - Node.js (>= 14.x)
 - npm (>= 6.x)
-- PostgreSQL
+- PostgreSQL (make sure it is installed and running)
 
 ### Installation
 
@@ -84,7 +84,7 @@ LovelyStayChallenge/
     npm install dotenv
     ```
 
-6. **Run migrations to set up the database:**
+5. **Run migrations to set up the database:**
 
     ```bash
     npx sequelize-cli db:migrate
@@ -147,18 +147,12 @@ npm run lint
 
 ### Controllers
 
-- **usersController:** Handles CRUD operations related to users.
-- **languagesController.ts:** Handles CRUD operations related to languages.
 
 ### Services
 
-- **databaseConnection:** Manages the connection to the database.
-- **githubConnection:** Placeholder for potential GitHub API interactions.
 
 ### Utilities
 
-- **queries:** Contains common database queries.
-- **utils:** Contains utility functions.
 
 ## Contact
 
