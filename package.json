@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/diogoastavares/LovelyStayChallenge#readme",
   "dependencies": {
-    "@types/node": "^20.14.9",
     "axios": "^1.7.2",
     "commander": "^12.1.0",
     "pg-promise": "^11.8.0",
@@ -30,6 +29,7 @@
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
+    "@types/node": "^20.14.9",
     "@types/sequelize": "^4.28.20",
     "@typescript-eslint/eslint-plugin": "^7.15.0",
     "@typescript-eslint/parser": "^7.15.0",
