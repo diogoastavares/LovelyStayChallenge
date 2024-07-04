@@ -25,19 +25,23 @@ LovelyStayChallenge/
 │ ├── migrations/
 │ │ ├── 00-create-users.ts
 │ │ └── 01-create-languages.ts
-│ └── models/
-│ ├── Languages.ts
-│ └── Users.ts
+│ ├── models/
+│ │ ├── Languages.ts
+│ │ └── Users.ts
+│ └── README.md
 ├── src/
 │ ├── controllers/
 │ │ ├── languagesController.ts
-│ │ └── usersController.ts
+│ │ ├── usersController.ts
+│ │ └── README.md
 │ ├── services/
 │ │ ├── databaseConnection.ts
-│ │ └── githubConnection.ts
-│ └── utils/
-│ ├── queries.ts
-│ └── utils.ts
+│ │ ├── githubConnection.ts
+│ │ └── README.md
+│ ├── utils/
+│ │ ├── queries.ts
+│ │ ├── utils.ts
+│ │ └── README.md
 └── README.md
 ```
 
@@ -140,20 +144,11 @@ npm run lint
 
 ## Project Details
 
-### Database Models
+For detailed information about the database models, controllers, services, and utilities used in this project, please refer to the specific README files located in their respective folders:
 
-- **Users:** Manages user data.
-- **Languages:** Manages language data.
-
-### Controllers
-
-
-### Services
-
-
-### Utilities
-
-
-## Contact
+- **Database:** Refer to [Database](./db/) for details on database setup.
+- **Controllers:** Refer to [Controllers](./src/controllers/) for information about the controllers.
+- **Services:** Refer to [Services](./src/services/) for details on services.
+- **Utilities:** Refer to [Utilities](./src/utils/) for information about the utility functions and constants.
 
 For any questions or suggestions, please contact [diogo.tav.1997@gmail.com].

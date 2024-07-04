@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "db:migrate": "ts-node ./node_modules/.bin/sequelize db:migrate",
+    "db:migrate:undo": "ts-node ./node_modules/.bin/sequelize db:migrate:undo",
     "lint": "eslint . --ext .ts --fix",
     "build": "tsc",
     "test": "npm run test"
