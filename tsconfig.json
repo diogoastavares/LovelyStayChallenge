@@ -9,5 +9,5 @@
   },
   "include": [
     "src/**/*.ts"
-  ]
+, "__tests__/queries.test.ts", "__tests__/utils.test.ts"  ]
 }

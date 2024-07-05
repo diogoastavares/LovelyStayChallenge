@@ -1,42 +1,42 @@
 export const insertUserQuery: string = `
-    INSERT INTO "Users" (github_username, name, location)
-    VALUES($1, $2, $3) 
-    ON CONFLICT (github_username)
-    DO UPDATE SET
-        name = EXCLUDED.name,
-        location = EXCLUDED.location
-    RETURNING id, (xmax = 0) AS new_insertion`;
+  INSERT INTO "Users" (github_username, name, location)
+  VALUES($1, $2, $3) 
+  ON CONFLICT (github_username)
+  DO UPDATE SET
+      name = EXCLUDED.name,
+      location = EXCLUDED.location
+  RETURNING id, (xmax = 0) AS new_insertion`;
 
 export const insertLanguagesQuery: string = `
-    INSERT INTO "Languages" (user_id, language)
-    VALUES ($1, $2)
-    ON CONFLICT (user_id, language) DO NOTHING
-    RETURNING language`;
+  INSERT INTO "Languages" (user_id, language)
+  VALUES ($1, $2)
+  ON CONFLICT (user_id, language) DO NOTHING
+  RETURNING language`;
 
 export const deleteObsoleteLanguagesQuery: string = `
-    DELETE FROM "Languages"
+  DELETE FROM "Languages"
+  WHERE user_id = $1
+  AND language IN (
+    SELECT language
+    FROM "Languages"
     WHERE user_id = $1
-    AND language IN (
-        SELECT language
-        FROM "Languages"
-        WHERE user_id = $1
-        EXCEPT
-        SELECT unnest($2::text[])
-    )
-    RETURNING language`;
+    EXCEPT
+    SELECT unnest($2::text[])
+  )
+  RETURNING language`;
 
 const getUsersBaseQuery: string = `
-    SELECT u.*
-    FROM "Users" u`;
+  SELECT u.*
+  FROM "Users" u`;
 
 const languagesCondition: string = `
-    u.id IN (
-        SELECT user_id
-        FROM "Languages"
-        WHERE language IN ($/languages:csv/)
-        GROUP BY user_id
-        HAVING COUNT(DISTINCT language) = $/languageCount/
-    )`;
+  u.id IN (
+    SELECT user_id
+    FROM "Languages"
+    WHERE language IN ($/languages:csv/)
+    GROUP BY user_id
+    HAVING COUNT(DISTINCT language) = $/languageCount/
+  )`;
 
 export const getUsersQuery = (
   conditions: {
@@ -44,7 +44,8 @@ export const getUsersQuery = (
     languages: string[] | undefined
   }
 ): {
-  [key: string]: string | object
+  query: string
+  values: object
 } => {
   let query: string = getUsersBaseQuery;
   const conditionsArray: string[] = [];

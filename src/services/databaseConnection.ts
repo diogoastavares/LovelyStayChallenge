@@ -10,7 +10,13 @@ import {
 } from '../utils/utils';
 
 const pgp = pgPromise();
-const db = pgp(process.env.DATABASE_URL!);
+const db = pgp({
+  'user': process.env.PG_USERNAME,
+  'password': process.env.PG_PASSWORD,
+  'database': process.env.PG_DATABASE,
+  'host': process.env.PG_HOST,
+  'port': 5432
+});
 
 export async function insertUser(
   user: {
@@ -32,7 +38,7 @@ export async function insertUser(
       return result.id;
     })
     .catch((error: Error) => {
-      throw customError('Error adding user do DB', error);
+      throw customError('Error adding user to DB', error);
     });
 };
 
@@ -69,7 +75,7 @@ export const insertLanguages = async (
         }
       })
       .catch((error: Error) => {
-        throw customError('Error adding Languages do DB', error);
+        throw customError('Error adding Languages to DB', error);
       });
   });
 };

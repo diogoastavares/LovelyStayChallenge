@@ -1,0 +1,8 @@
+# Ignore the 'node_modules' folder
+node_modules/
+
+# Ignore all files in the 'dist' folder
+dist/
+
+# Ignore all files in the '__tests__' folder
+__tests__/
