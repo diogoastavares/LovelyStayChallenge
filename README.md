@@ -7,7 +7,8 @@ The main objective of this application is to manage users by fetching their
 information from GitHub and storing it in a PostgreSQL database. It also 
 provides functionality to list users with optional filters based on location 
 and programming languages. The application uses TypeScript, Sequelize ORM for 
-database management, and ESLint for code quality assurance.
+database management, ESLint for code quality assurance, and Jest for unit 
+testing and coverage reporting.
 
 ## Project Structure
 
@@ -19,6 +20,20 @@ LovelyStayChallenge/
 ├── package-lock.json
 ├── package.json
 ├── tsconfig.json
+├── __tests__/
+│ ├── controllers/
+│ │ ├── languagesController.test.ts
+│ │ ├── usersController.test.ts
+│ │ └── README.md
+│ ├── services/
+│ │ ├── databaseConnection.test.ts
+│ │ ├── githubConnection.test.ts
+│ │ └── README.md
+│ ├── utils/
+│ │ ├── queries.test.ts
+│ │ ├── utils.test.ts
+│ │ └── README.md
+│ └── README.md
 ├── db/
 │ ├── config/
 │ │ └── database.ts
@@ -141,6 +156,45 @@ To run ESLint to check for linting errors:
 ```bash
 npm run lint
 ```
+
+## Testing
+
+The `__tests__` folder contains unit tests for different parts of the application. For more information see [Testing](./__tests__/).
+
+### Running the Tests
+
+To run all tests, use the following command:
+
+```bash
+npm run test
+````
+
+To check the test coverage, use:
+
+```bash
+npm run test:cov
+```
+
+
+You can also run tests for specific parts of the application:
+
+- **Controllers**: View [Controller Tests](./__tests__/controllers/)
+    
+    ```bash
+    npm run test __tests__/controllers/
+    ```
+
+- **Services**: View [Service Tests](./__tests__/services/)
+
+    ```bash
+    npm run test __tests__/services/
+    ```
+
+- **Utils**: View [Utils Tests](./__tests__/utils/)
+
+    ```bash
+    npm run test __tests__/utils/
+    ```
 
 ## Project Details
 
