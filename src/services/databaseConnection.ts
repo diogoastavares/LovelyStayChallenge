@@ -1,4 +1,6 @@
 import pgPromise from 'pg-promise';
+import path from 'path';
+import { config } from 'dotenv';
 import {
   deleteObsoleteLanguagesQuery,
   insertLanguagesQuery,
@@ -8,6 +10,8 @@ import {
 import {
   customError
 } from '../utils/utils';
+
+config({ path: path.resolve(__dirname, '../../.env') });
 
 const pgp = pgPromise();
 const db = pgp({

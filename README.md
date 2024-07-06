@@ -90,11 +90,11 @@ LovelyStayChallenge/
     configuration variables:
 
     ```plaintext
-    DB_HOST=your_database_host
-    DB_PORT=your_database_port
-    DB_USERNAME=your_database_username
-    DB_PASSWORD=your_database_password
-    DB_DATABASE=your_database_name
+    PG_HOST=your_database_host
+    PG_PORT=your_database_port
+    PG_USERNAME=your_database_username
+    PG_PASSWORD=your_database_password
+    PG_DATABASE=your_database_name
     ```
 
 4. **Install the `dotenv` package to load environment variables:**
@@ -126,7 +126,7 @@ following commands to run various parts of the application:
 database:
 
     ```bash
-    npm run addUser <username>
+    npm run addUser -- <username>
     ```
 
     Replace `<username>` with the GitHub username of the user you want to add.
@@ -134,7 +134,7 @@ database:
 - To list all users stored in the database with optional filters:
 
     ```bash
-    npm run listUsers [options]
+    npm run listUsers -- [options]
     ```
 
     **Options:**

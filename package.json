@@ -9,7 +9,9 @@
     "lint": "eslint . --ext .ts --fix",
     "build": "tsc",
     "test": "jest",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage",
+    "addUser": "npm run build && node dist/main.js addUser",
+    "listUsers": "npm run build && node dist/main.js listUsers"
   },
   "repository": {
     "type": "git",

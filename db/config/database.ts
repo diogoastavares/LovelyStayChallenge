@@ -1,6 +1,7 @@
 import { config } from 'dotenv';
+import path from 'path';
 
-config();  // Load environment variables from .env file
+config({ path: path.resolve(__dirname, '../../.env') });  // Load environment variables from .env file
 
 export default {
   development: {
