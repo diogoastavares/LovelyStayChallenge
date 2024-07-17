@@ -1,8 +1,8 @@
-import { QueryInterface, DataTypes } from 'sequelize';
+const DataTypes = require('sequelize').DataTypes;
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface: QueryInterface) {
+  async up(queryInterface) {
     await queryInterface.createTable('Users', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -29,7 +29,7 @@ module.exports = {
       name: 'unique_github_username'
     });
   },
-  async down(queryInterface: QueryInterface) {
+  async down(queryInterface) {
     await queryInterface.dropTable('Users');
   }
 };

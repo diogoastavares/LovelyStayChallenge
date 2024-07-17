@@ -1,9 +1,9 @@
-import { config } from 'dotenv';
-import path from 'path';
+const config = require('dotenv').config;
+const path = require('path');
 
 config({ path: path.resolve(__dirname, '../../.env') });  // Load environment variables from .env file
 
-export default {
+module.exports = {
   development: {
     username: process.env.PG_USERNAME,
     password: process.env.PG_PASSWORD,

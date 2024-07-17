@@ -109,12 +109,12 @@ LovelyStayChallenge/
     npx sequelize-cli db:migrate
     ```
 
-## Running the Application
+## Build the Application
 
-To start the application, use:
+To build the application, use:
 
 ```bash
-npm start
+npm run build
 ```
 
 ## Running Commands
@@ -140,14 +140,6 @@ database:
     **Options:**
     - **-l, --location [location]:** Filter users by location.
     - **--languages [languages...]:** Filter users by programming languages.
-
-## Development
-
-To start the application in development mode with hot-reloading:
-
-```bash
-npm run dev
-```
 
 ## Linting
 

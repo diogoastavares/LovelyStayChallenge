@@ -1,8 +1,8 @@
-import { QueryInterface, DataTypes } from 'sequelize';
+const DataTypes = require('sequelize').DataTypes;
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface: QueryInterface) {
+  async up(queryInterface) {
     await queryInterface.createTable('Languages', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -37,7 +37,7 @@ module.exports = {
       name: 'unique_user_language'
     });
   },
-  async down(queryInterface: QueryInterface) {
+  async down(queryInterface) {
     await queryInterface.dropTable('Languages');
   }
 };
