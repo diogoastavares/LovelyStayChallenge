@@ -26,8 +26,10 @@ export const deleteObsoleteLanguagesQuery: string = `
   RETURNING language`;
 
 const getUsersBaseQuery: string = `
-  SELECT u.*
-  FROM "Users" u`;
+  SELECT u.*, array_agg(l.language)
+  FROM "Users" u
+  LEFT JOIN "Languages" l ON u.id = l.user_id`;
+
 
 const languagesCondition: string = `
   u.id IN (
@@ -65,6 +67,8 @@ export const getUsersQuery = (
   if (conditionsArray.length > 0) {
     query += ' WHERE ' + conditionsArray.join(' AND ');
   }
+
+  query += ' GROUP BY u.id';
 
   return {
     query,
