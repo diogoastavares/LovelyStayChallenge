@@ -1,0 +1,37 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "max-len":                                            ["error", { "code": 80 }],
+    "semi":                                               ["error", "always"],        // Enforce semicolons
+    "quotes":                                             ["error", "single"],        // Use single quotes
+    "indent":                                             ["error", 2],               // 2-space indentation
+    "no-trailing-spaces":                                 "error",                    // Disallow trailing spaces
+    "eol-last":                                           ["error", "always"],        // Ensure newline at end of file
+    "no-unused-vars":                                     "off",                      // Turn off to use @typescript-eslint rule
+    "@typescript-eslint/no-unused-vars":                  ["error"],                  // Disallow unused variables
+    "@typescript-eslint/no-explicit-any":                 "warn",                     // Warn on use of 'any' type
+    "@typescript-eslint/explicit-function-return-type":   "off",                      // Optional return types
+    "@typescript-eslint/explicit-module-boundary-types":  "off",                      // Optional module boundary types
+    "@typescript-eslint/no-inferrable-types":             "off",                      // Allow type inference
+    "curly":                                              ["error", "all"],           // Enforce consistent brace style
+    "eqeqeq":                                             ["error", "always"],        // Enforce use of === and !==
+    "prefer-const":                                       "error",                    // Prefer const over let where possible
+    "object-curly-newline":                               ["error", {
+                                                            "ImportDeclaration": { 
+                                                              "consistent": true, 
+                                                              "multiline": true 
+                                                            }
+                                                          }]
+  }
+}
+  
